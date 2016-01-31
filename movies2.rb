@@ -132,12 +132,11 @@ class MovieTest
   end
 end
 #z = MovieData.new("ml-100k")
-# z = MovieData.new("ml-100k", :u1)
+z = MovieData.new("ml-100k", :u1)
 #
 # puts Time.now
-# a = z.run_test()
-# puts Time.now
-# puts "mean is #{a.mean}"
-# puts "stddev is #{a.stddev}"
-# puts "rms is #{a.rms}"
-# puts a.to_a.length
+puts "Testing: u1"
+puts "size #{20000}"
+puts Time.now
+a = z.run_test()
+puts Time.now

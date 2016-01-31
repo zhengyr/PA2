@@ -171,7 +171,7 @@
 
           
           <div class="method-source-code" id="new-source">
-            <pre><span class="ruby-comment"># File movies2.rb, line 113</span>
+            <pre><span class="ruby-comment"># File movies2.rb, line 98</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">test_list</span>)
   <span class="ruby-ivar">@test_list</span> = <span class="ruby-identifier">test_list</span>
   <span class="ruby-ivar">@pred_error</span> = <span class="ruby-constant">Array</span>.<span class="ruby-identifier">new</span>
@@ -214,7 +214,7 @@
 
           
           <div class="method-source-code" id="load_error-source">
-            <pre><span class="ruby-comment"># File movies2.rb, line 119</span>
+            <pre><span class="ruby-comment"># File movies2.rb, line 104</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">load_error</span>
   <span class="ruby-identifier">test_list</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">current_user</span><span class="ruby-operator">|</span>
     <span class="ruby-identifier">pred_error</span>.<span class="ruby-identifier">push</span>(<span class="ruby-identifier">current_user</span>[<span class="ruby-value">2</span>]<span class="ruby-operator">-</span><span class="ruby-identifier">current_user</span>[<span class="ruby-value">3</span>])
@@ -249,7 +249,7 @@
 
           
           <div class="method-source-code" id="mean-source">
-            <pre><span class="ruby-comment"># File movies2.rb, line 125</span>
+            <pre><span class="ruby-comment"># File movies2.rb, line 110</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">mean</span>
   <span class="ruby-identifier">sum</span> = <span class="ruby-value">0</span>
   <span class="ruby-identifier">pred_error</span>.<span class="ruby-identifier">each</span>{<span class="ruby-operator">|</span><span class="ruby-identifier">e</span><span class="ruby-operator">|</span> <span class="ruby-identifier">sum</span> <span class="ruby-operator">+=</span> <span class="ruby-identifier">e</span>}
@@ -284,7 +284,7 @@
 
           
           <div class="method-source-code" id="rms-source">
-            <pre><span class="ruby-comment"># File movies2.rb, line 138</span>
+            <pre><span class="ruby-comment"># File movies2.rb, line 123</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">rms</span>
   <span class="ruby-identifier">sum</span> = <span class="ruby-value">0</span>
   <span class="ruby-identifier">get_mean</span> = <span class="ruby-identifier">mean</span>
@@ -320,7 +320,7 @@
 
           
           <div class="method-source-code" id="stddev-source">
-            <pre><span class="ruby-comment"># File movies2.rb, line 131</span>
+            <pre><span class="ruby-comment"># File movies2.rb, line 116</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">stddev</span>
   <span class="ruby-identifier">sum</span> = <span class="ruby-value">0</span>
   <span class="ruby-identifier">get_mean</span> = <span class="ruby-identifier">mean</span>
@@ -356,7 +356,7 @@
 
           
           <div class="method-source-code" id="to_a-source">
-            <pre><span class="ruby-comment"># File movies2.rb, line 145</span>
+            <pre><span class="ruby-comment"># File movies2.rb, line 130</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">to_a</span>
   <span class="ruby-identifier">test_list</span>
 <span class="ruby-keyword">end</span></pre>

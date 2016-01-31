@@ -72,7 +72,7 @@
     
     <li ><a href="#method-c-new">::new</a>
     
-    <li ><a href="#method-i-avg_rating">#avg_rating</a>
+    <li ><a href="#method-i-general_calculate">#general_calculate</a>
     
     <li ><a href="#method-i-load_Data">#load_Data</a>
     
@@ -223,11 +223,11 @@ and predict the rating for movies</p>
        </header>
 
     
-      <div id="method-i-avg_rating" class="method-detail ">
+      <div id="method-i-general_calculate" class="method-detail ">
         
         <div class="method-heading">
-          <span class="method-name">avg_rating</span><span
-            class="method-args">(m)</span>
+          <span class="method-name">general_calculate</span><span
+            class="method-args">(list, i)</span>
           
           <span class="method-click-advice">click to toggle source</span>
           
@@ -236,21 +236,19 @@ and predict the rating for movies</p>
 
         <div class="method-description">
           
-          <p>calculate the avg rating of a movie</p>
+          <p>get sepcific result from the user</p>
           
           
 
           
-          <div class="method-source-code" id="avg_rating-source">
-            <pre><span class="ruby-comment"># File movies2.rb, line 57</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">avg_rating</span>(<span class="ruby-identifier">m</span>)
-  <span class="ruby-identifier">sum</span> = <span class="ruby-value">0</span>
-  <span class="ruby-identifier">mov</span> = <span class="ruby-identifier">movie_s</span>[<span class="ruby-identifier">m</span>]
-  <span class="ruby-keyword">if</span> <span class="ruby-identifier">mov</span> <span class="ruby-operator">==</span> <span class="ruby-keyword">nil</span><span class="ruby-comment">#if the movie is not in the database, then return 3</span>
-    <span class="ruby-keyword">return</span> <span class="ruby-value">3</span>
+          <div class="method-source-code" id="general_calculate-source">
+            <pre><span class="ruby-comment"># File movies2.rb, line 71</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">general_calculate</span>(<span class="ruby-identifier">list</span>, <span class="ruby-identifier">i</span>)
+  <span class="ruby-identifier">result</span> = <span class="ruby-constant">Array</span>.<span class="ruby-identifier">new</span>
+  <span class="ruby-identifier">list</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">element</span><span class="ruby-operator">|</span>
+    <span class="ruby-identifier">result</span>.<span class="ruby-identifier">push</span>(<span class="ruby-identifier">element</span>[<span class="ruby-identifier">i</span>].<span class="ruby-identifier">to_i</span>)
   <span class="ruby-keyword">end</span>
-  <span class="ruby-identifier">mov</span>.<span class="ruby-identifier">each</span> {<span class="ruby-operator">|</span><span class="ruby-identifier">rate</span><span class="ruby-operator">|</span> <span class="ruby-identifier">sum</span> <span class="ruby-operator">+=</span><span class="ruby-identifier">rate</span>[<span class="ruby-value">1</span>]}
-  <span class="ruby-keyword">return</span> <span class="ruby-identifier">sum</span><span class="ruby-operator">/</span><span class="ruby-identifier">movie_s</span>[<span class="ruby-identifier">m</span>].<span class="ruby-identifier">length</span>.<span class="ruby-identifier">to_f</span>
+  <span class="ruby-identifier">result</span>
 <span class="ruby-keyword">end</span></pre>
           </div>
           
@@ -287,21 +285,17 @@ and predict the rating for movies</p>
   <span class="ruby-ivar">@dataFile</span>.<span class="ruby-identifier">each_line</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">current_line</span><span class="ruby-operator">|</span>
     <span class="ruby-identifier">info</span> = <span class="ruby-identifier">current_line</span>.<span class="ruby-identifier">split</span>(<span class="ruby-string">&quot; &quot;</span>)
     <span class="ruby-comment"># put information into users hash table</span>
-    <span class="ruby-keyword">if</span> <span class="ruby-ivar">@users</span>.<span class="ruby-identifier">has_key?</span>(<span class="ruby-identifier">info</span>[<span class="ruby-value">0</span>].<span class="ruby-identifier">to_i</span>)
-      <span class="ruby-ivar">@users</span>[<span class="ruby-identifier">info</span>[<span class="ruby-value">0</span>].<span class="ruby-identifier">to_i</span>].<span class="ruby-identifier">push</span>([<span class="ruby-identifier">info</span>[<span class="ruby-value">1</span>].<span class="ruby-identifier">to_i</span>, <span class="ruby-identifier">info</span>[<span class="ruby-value">2</span>].<span class="ruby-identifier">to_i</span>, <span class="ruby-identifier">info</span>[<span class="ruby-value">3</span>].<span class="ruby-identifier">to_i</span>])
-    <span class="ruby-keyword">else</span>
+    <span class="ruby-keyword">if</span> <span class="ruby-keyword">not</span> <span class="ruby-ivar">@users</span>.<span class="ruby-identifier">has_key?</span>(<span class="ruby-identifier">info</span>[<span class="ruby-value">0</span>].<span class="ruby-identifier">to_i</span>)
       <span class="ruby-ivar">@users</span>[<span class="ruby-identifier">info</span>[<span class="ruby-value">0</span>].<span class="ruby-identifier">to_i</span>] = <span class="ruby-constant">Array</span>.<span class="ruby-identifier">new</span>
-      <span class="ruby-ivar">@users</span>[<span class="ruby-identifier">info</span>[<span class="ruby-value">0</span>].<span class="ruby-identifier">to_i</span>].<span class="ruby-identifier">push</span>([<span class="ruby-identifier">info</span>[<span class="ruby-value">1</span>].<span class="ruby-identifier">to_i</span>, <span class="ruby-identifier">info</span>[<span class="ruby-value">2</span>].<span class="ruby-identifier">to_i</span>, <span class="ruby-identifier">info</span>[<span class="ruby-value">3</span>].<span class="ruby-identifier">to_i</span>])
     <span class="ruby-keyword">end</span>
-    <span class="ruby-keyword">if</span> <span class="ruby-ivar">@movie_s</span>.<span class="ruby-identifier">has_key?</span>(<span class="ruby-identifier">info</span>[<span class="ruby-value">1</span>].<span class="ruby-identifier">to_i</span>)
-      <span class="ruby-comment"># element at 0 is user, element at 1 is rating</span>
-      <span class="ruby-ivar">@movie_s</span>[<span class="ruby-identifier">info</span>[<span class="ruby-value">1</span>].<span class="ruby-identifier">to_i</span>].<span class="ruby-identifier">push</span>([<span class="ruby-identifier">info</span>[<span class="ruby-value">0</span>].<span class="ruby-identifier">to_i</span>, <span class="ruby-identifier">info</span>[<span class="ruby-value">2</span>].<span class="ruby-identifier">to_i</span>])
-    <span class="ruby-keyword">else</span>
+    <span class="ruby-ivar">@users</span>[<span class="ruby-identifier">info</span>[<span class="ruby-value">0</span>].<span class="ruby-identifier">to_i</span>].<span class="ruby-identifier">push</span>([<span class="ruby-identifier">info</span>[<span class="ruby-value">1</span>].<span class="ruby-identifier">to_i</span>, <span class="ruby-identifier">info</span>[<span class="ruby-value">2</span>].<span class="ruby-identifier">to_i</span>, <span class="ruby-identifier">info</span>[<span class="ruby-value">3</span>].<span class="ruby-identifier">to_i</span>])
+
+    <span class="ruby-keyword">if</span> <span class="ruby-keyword">not</span> <span class="ruby-ivar">@movie_s</span>.<span class="ruby-identifier">has_key?</span>(<span class="ruby-identifier">info</span>[<span class="ruby-value">1</span>].<span class="ruby-identifier">to_i</span>)
       <span class="ruby-ivar">@movie_s</span>[<span class="ruby-identifier">info</span>[<span class="ruby-value">1</span>].<span class="ruby-identifier">to_i</span>] = <span class="ruby-constant">Array</span>.<span class="ruby-identifier">new</span>
-      <span class="ruby-ivar">@movie_s</span>[<span class="ruby-identifier">info</span>[<span class="ruby-value">1</span>].<span class="ruby-identifier">to_i</span>].<span class="ruby-identifier">push</span>([<span class="ruby-identifier">info</span>[<span class="ruby-value">0</span>].<span class="ruby-identifier">to_i</span>, <span class="ruby-identifier">info</span>[<span class="ruby-value">2</span>].<span class="ruby-identifier">to_i</span>])
     <span class="ruby-keyword">end</span>
+    <span class="ruby-comment"># element at 0 is user, element at 1 is rating</span>
+    <span class="ruby-ivar">@movie_s</span>[<span class="ruby-identifier">info</span>[<span class="ruby-value">1</span>].<span class="ruby-identifier">to_i</span>].<span class="ruby-identifier">push</span>([<span class="ruby-identifier">info</span>[<span class="ruby-value">0</span>].<span class="ruby-identifier">to_i</span>, <span class="ruby-identifier">info</span>[<span class="ruby-value">2</span>].<span class="ruby-identifier">to_i</span>])
   <span class="ruby-keyword">end</span>
-  <span class="ruby-identifier">i</span> = <span class="ruby-value">0</span>
 <span class="ruby-keyword">end</span></pre>
           </div>
           
@@ -332,14 +326,9 @@ and predict the rating for movies</p>
 
           
           <div class="method-source-code" id="movies-source">
-            <pre><span class="ruby-comment"># File movies2.rb, line 76</span>
+            <pre><span class="ruby-comment"># File movies2.rb, line 63</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">movies</span>(<span class="ruby-identifier">u</span>)
-  <span class="ruby-identifier">result</span> = <span class="ruby-constant">Array</span>.<span class="ruby-identifier">new</span>
-  <span class="ruby-identifier">user_array</span> = <span class="ruby-identifier">users</span>[<span class="ruby-identifier">u</span>.<span class="ruby-identifier">to_i</span>]
-  <span class="ruby-identifier">user_array</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">movie</span><span class="ruby-operator">|</span>
-    <span class="ruby-identifier">result</span>.<span class="ruby-identifier">push</span>(<span class="ruby-identifier">movie</span>[<span class="ruby-value">0</span>].<span class="ruby-identifier">to_i</span>)
-  <span class="ruby-keyword">end</span>
-  <span class="ruby-identifier">result</span>
+  <span class="ruby-identifier">general_calculate</span>(<span class="ruby-identifier">users</span>[<span class="ruby-identifier">u</span>.<span class="ruby-identifier">to_i</span>], <span class="ruby-value">0</span>)
 <span class="ruby-keyword">end</span></pre>
           </div>
           
@@ -364,15 +353,21 @@ and predict the rating for movies</p>
 
         <div class="method-description">
           
-          <p>get predication</p>
+          <p>get predication, calculate average</p>
           
           
 
           
           <div class="method-source-code" id="predict-source">
-            <pre><span class="ruby-comment"># File movies2.rb, line 53</span>
+            <pre><span class="ruby-comment"># File movies2.rb, line 49</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">predict</span>(<span class="ruby-identifier">u</span>, <span class="ruby-identifier">m</span>)
-  <span class="ruby-identifier">avg_rating</span>(<span class="ruby-identifier">m</span>)
+  <span class="ruby-identifier">sum</span> = <span class="ruby-value">0</span>
+  <span class="ruby-identifier">mov</span> = <span class="ruby-identifier">movie_s</span>[<span class="ruby-identifier">m</span>]
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">mov</span> <span class="ruby-operator">==</span> <span class="ruby-keyword">nil</span><span class="ruby-comment">#if the movie is not in the database, then return 3</span>
+    <span class="ruby-keyword">return</span> <span class="ruby-value">3</span>
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-identifier">mov</span>.<span class="ruby-identifier">each</span> {<span class="ruby-operator">|</span><span class="ruby-identifier">rate</span><span class="ruby-operator">|</span> <span class="ruby-identifier">sum</span> <span class="ruby-operator">+=</span><span class="ruby-identifier">rate</span>[<span class="ruby-value">1</span>]}
+  <span class="ruby-keyword">return</span> <span class="ruby-identifier">sum</span><span class="ruby-operator">/</span><span class="ruby-identifier">movie_s</span>[<span class="ruby-identifier">m</span>].<span class="ruby-identifier">length</span>.<span class="ruby-identifier">to_f</span>
 <span class="ruby-keyword">end</span></pre>
           </div>
           
@@ -403,7 +398,7 @@ and predict the rating for movies</p>
 
           
           <div class="method-source-code" id="rating-source">
-            <pre><span class="ruby-comment"># File movies2.rb, line 43</span>
+            <pre><span class="ruby-comment"># File movies2.rb, line 39</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">rating</span>(<span class="ruby-identifier">u</span>, <span class="ruby-identifier">m</span>)
   <span class="ruby-identifier">user_array</span> = <span class="ruby-identifier">users</span>[<span class="ruby-identifier">u</span>.<span class="ruby-identifier">to_i</span>]
   <span class="ruby-identifier">user_array</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">movie</span><span class="ruby-operator">|</span>
@@ -442,14 +437,9 @@ and predict the rating for movies</p>
 
           
           <div class="method-source-code" id="ratings-source">
-            <pre><span class="ruby-comment"># File movies2.rb, line 67</span>
+            <pre><span class="ruby-comment"># File movies2.rb, line 59</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">ratings</span>(<span class="ruby-identifier">m</span>)
-  <span class="ruby-identifier">result</span> = <span class="ruby-constant">Array</span>.<span class="ruby-identifier">new</span>
-  <span class="ruby-identifier">movie_array</span> = <span class="ruby-identifier">movie_s</span>[<span class="ruby-identifier">m</span>.<span class="ruby-identifier">to_i</span>]
-  <span class="ruby-identifier">movie_array</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">user</span><span class="ruby-operator">|</span>
-    <span class="ruby-identifier">result</span>.<span class="ruby-identifier">push</span>(<span class="ruby-identifier">user</span>[<span class="ruby-value">1</span>].<span class="ruby-identifier">to_i</span>)
-  <span class="ruby-keyword">end</span>
-  <span class="ruby-identifier">result</span>
+  <span class="ruby-identifier">general_calculate</span>(<span class="ruby-identifier">movie_s</span>[<span class="ruby-identifier">m</span>.<span class="ruby-identifier">to_i</span>], <span class="ruby-value">1</span>)
 <span class="ruby-keyword">end</span></pre>
           </div>
           
@@ -480,12 +470,12 @@ and predict the rating for movies</p>
 
           
           <div class="method-source-code" id="run_test-source">
-            <pre><span class="ruby-comment"># File movies2.rb, line 94</span>
+            <pre><span class="ruby-comment"># File movies2.rb, line 79</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">run_test</span>(<span class="ruby-identifier">k</span> = <span class="ruby-value">-1</span>)
   <span class="ruby-identifier">test_list</span> = <span class="ruby-constant">Array</span>.<span class="ruby-identifier">new</span>
   <span class="ruby-identifier">check</span> = <span class="ruby-identifier">k</span>
-  <span class="ruby-identifier">k</span> <span class="ruby-operator">-=</span><span class="ruby-value">1</span>
   <span class="ruby-identifier">testFile</span>.<span class="ruby-identifier">each_line</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">current_line</span><span class="ruby-operator">|</span>
+    <span class="ruby-identifier">k</span> <span class="ruby-operator">-=</span><span class="ruby-value">1</span>
     <span class="ruby-identifier">info</span> = <span class="ruby-identifier">current_line</span>.<span class="ruby-identifier">split</span>(<span class="ruby-string">&quot; &quot;</span>)
     <span class="ruby-identifier">test_list</span>.<span class="ruby-identifier">push</span>([<span class="ruby-identifier">info</span>[<span class="ruby-value">0</span>].<span class="ruby-identifier">to_i</span>, <span class="ruby-identifier">info</span>[<span class="ruby-value">1</span>].<span class="ruby-identifier">to_i</span>, <span class="ruby-identifier">info</span>[<span class="ruby-value">2</span>].<span class="ruby-identifier">to_i</span>,
     <span class="ruby-identifier">predict</span>(<span class="ruby-identifier">info</span>[<span class="ruby-value">0</span>].<span class="ruby-identifier">to_i</span>, <span class="ruby-identifier">info</span>[<span class="ruby-value">1</span>].<span class="ruby-identifier">to_i</span>)])
@@ -524,14 +514,9 @@ and predict the rating for movies</p>
 
           
           <div class="method-source-code" id="viewers-source">
-            <pre><span class="ruby-comment"># File movies2.rb, line 85</span>
+            <pre><span class="ruby-comment"># File movies2.rb, line 67</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">viewers</span>(<span class="ruby-identifier">m</span>)
-  <span class="ruby-identifier">result</span> = <span class="ruby-constant">Array</span>.<span class="ruby-identifier">new</span>
-  <span class="ruby-identifier">movie_array</span> = <span class="ruby-identifier">movie_s</span>[<span class="ruby-identifier">m</span>.<span class="ruby-identifier">to_i</span>]
-  <span class="ruby-identifier">movie_array</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">user</span><span class="ruby-operator">|</span>
-    <span class="ruby-identifier">result</span>.<span class="ruby-identifier">push</span>(<span class="ruby-identifier">user</span>[<span class="ruby-value">0</span>].<span class="ruby-identifier">to_i</span>)
-  <span class="ruby-keyword">end</span>
-  <span class="ruby-identifier">result</span>
+  <span class="ruby-identifier">general_calculate</span>(<span class="ruby-identifier">movie_s</span>[<span class="ruby-identifier">m</span>.<span class="ruby-identifier">to_i</span>], <span class="ruby-value">0</span>)
 <span class="ruby-keyword">end</span></pre>
           </div>
           
