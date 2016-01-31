@@ -23,21 +23,17 @@ class MovieData
     @dataFile.each_line do |current_line|
       info = current_line.split(" ")
       # put information into users hash table
-      if @users.has_key?(info[0].to_i)
-        @users[info[0].to_i].push([info[1].to_i, info[2].to_i, info[3].to_i])
-      else
+      if not @users.has_key?(info[0].to_i)
         @users[info[0].to_i] = Array.new
-        @users[info[0].to_i].push([info[1].to_i, info[2].to_i, info[3].to_i])
       end
-      if @movie_s.has_key?(info[1].to_i)
-        # element at 0 is user, element at 1 is rating
-        @movie_s[info[1].to_i].push([info[0].to_i, info[2].to_i])
-      else
+      @users[info[0].to_i].push([info[1].to_i, info[2].to_i, info[3].to_i])
+
+      if not @movie_s.has_key?(info[1].to_i)
         @movie_s[info[1].to_i] = Array.new
-        @movie_s[info[1].to_i].push([info[0].to_i, info[2].to_i])
       end
+      # element at 0 is user, element at 1 is rating
+      @movie_s[info[1].to_i].push([info[0].to_i, info[2].to_i])
     end
-    i = 0
   end
   #get rate of the movie for sepefic user
   def rating(u, m)
@@ -49,12 +45,8 @@ class MovieData
     end
     0
   end
-  #get predication
+  #get predication, calculate average
   def predict(u, m)
-    avg_rating(m)
-  end
-  #calculate the avg rating of a movie
-  def avg_rating(m)
     sum = 0
     mov = movie_s[m]
     if mov == nil#if the movie is not in the database, then return 3
@@ -65,28 +57,21 @@ class MovieData
   end
   #return the ratings of a movie
   def ratings(m)
-    result = Array.new
-    movie_array = movie_s[m.to_i]
-    movie_array.each do |user|
-      result.push(user[1].to_i)
-    end
-    result
+    general_calculate(movie_s[m.to_i], 1)
   end
   #return all the movies the user has seen
   def movies(u)
-    result = Array.new
-    user_array = users[u.to_i]
-    user_array.each do |movie|
-      result.push(movie[0].to_i)
-    end
-    result
+    general_calculate(users[u.to_i], 0)
   end
   #return all the the users who have seen the movie
   def viewers(m)
+    general_calculate(movie_s[m.to_i], 0)
+  end
+  #get sepcific result from the user
+  def general_calculate(list, i)
     result = Array.new
-    movie_array = movie_s[m.to_i]
-    movie_array.each do |user|
-      result.push(user[0].to_i)
+    list.each do |element|
+      result.push(element[i].to_i)
     end
     result
   end
@@ -94,8 +79,8 @@ class MovieData
   def run_test(k = -1)
     test_list = Array.new
     check = k
-    k -=1
     testFile.each_line do |current_line|
+      k -=1
       info = current_line.split(" ")
       test_list.push([info[0].to_i, info[1].to_i, info[2].to_i,
       predict(info[0].to_i, info[1].to_i)])
@@ -147,6 +132,12 @@ class MovieTest
   end
 end
 #z = MovieData.new("ml-100k")
-#z = MovieData.new("ml-100k", :u1)
-#a = z.run_test()
-#puts a.mean
+# z = MovieData.new("ml-100k", :u1)
+#
+# puts Time.now
+# a = z.run_test()
+# puts Time.now
+# puts "mean is #{a.mean}"
+# puts "stddev is #{a.stddev}"
+# puts "rms is #{a.rms}"
+# puts a.to_a.length
